@@ -9,7 +9,7 @@ Modbus TCP Register Fuzzing Tool by m3rt
 ## Options
 -h or --help	Help Menu
 
--f or --func-code <Code>	Modbus Function Code
+-f or --func-code <Code> Modbus Function Code
   (3=ReadHoldingRegisters,6=WriteSingleRegister,10=WriteMultipleRegisters)
 
 -F or --flood	OPTIONAL Modbus Flood/DoS Attack
