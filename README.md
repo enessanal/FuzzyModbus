@@ -6,7 +6,7 @@ Modbus TCP Register Fuzzing Tool by m3rt
   
   $> ./fuzzyModbus.py <OPTIONS>
   
-## OPTIONS
+## Options
 -h or --help	Help Menu
 
 -f or --func-code <Code>	Modbus Function Code
