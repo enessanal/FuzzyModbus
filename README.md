@@ -1,16 +1,24 @@
-# FuzzyModbus v0.1
-Modbus TCP Register Fuzzing Tool by m3rt
+FuzzyModbus v0.1
+=====================
+Modbus TCP Register Fuzzing and DoS Tool.
 
-## Using:
-  $> pip install -r requirements.txt
-  
-  $> ./fuzzyModbus.py <OPTIONS>
-  
-## Options
+Install and Usage:
+-------------
+$> git clone https://github.com/imertayak/FuzzyModbus.git && cd FuzzyModbus
+
+$> pip install -r requirements.txt
+
+$> chmod +x FuzzyModbus.py
+
+$> ./FuzzyModbus.py [OPTIONS]
+
+### Command line options:
+
+```
 -h or --help	Help Menu
 
 -f or --func-code <Code> Modbus Function Code
-  (3=ReadHoldingRegisters,6=WriteSingleRegister,10=WriteMultipleRegisters)
+(3=ReadHoldingRegisters,6=WriteSingleRegister,10=WriteMultipleRegisters)
 
 -F or --flood	OPTIONAL Modbus Flood/DoS Attack
 
@@ -23,3 +31,5 @@ Modbus TCP Register Fuzzing Tool by m3rt
 -a or --address <Reg_Addr>	DEFAULT=0 First Register Address
 
 -c or --count <Count>	DEFAULT=1 Count of Registers to read/write 
+
+```
