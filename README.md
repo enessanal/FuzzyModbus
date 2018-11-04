@@ -10,7 +10,7 @@ $> pip install -r requirements.txt
 
 $> chmod +x FuzzyModbus.py
 
-$> ./fuzzyModbus.py [OPTIONS]
+$> ./FuzzyModbus.py [OPTIONS]
 
 ### Command line options:
 
