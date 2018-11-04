@@ -1,6 +1,6 @@
-FuzzyModbus v0.1
+FuzzyModbus v0.2
 =====================
-Modbus TCP Register Fuzzing and DoS Tool.
+ModbusTCP Fuzzing and DoS Tool.
 
 Install and Usage:
 -------------
@@ -10,7 +10,7 @@ $> pip install -r requirements.txt
 
 $> chmod +x FuzzyModbus.py
 
-$> ./FuzzyModbus.py [OPTIONS]
+$> ./fuzzyModbus.py [OPTIONS]
 
 ### Command line options:
 
@@ -18,7 +18,6 @@ $> ./FuzzyModbus.py [OPTIONS]
 -h or --help	Help Menu
 
 -f or --func-code <Code> Modbus Function Code
-(3=ReadHoldingRegisters,6=WriteSingleRegister,10=WriteMultipleRegisters)
 
 -F or --flood	OPTIONAL Modbus Flood/DoS Attack
 
@@ -30,6 +29,27 @@ $> ./FuzzyModbus.py [OPTIONS]
 
 -a or --address <Reg_Addr>	DEFAULT=0 First Register Address
 
--c or --count <Count>	DEFAULT=1 Count of Registers to read/write 
+-c or --count <Count>	DEFAULT=1 Count of Registers to read/write
+
+```
+
+### Supported Function Codes
+
+```
+Read Coils			Func. Code = 1
+
+Read Discrete Inputs		Func. Code = 2
+
+Read Holding Registes		Func. Code = 3
+
+Read Input Registers		Func. Code = 4
+
+Write Single Coil		Func. Code = 5
+
+Write Single Register		Func. Code = 6
+
+Write Multiple Coils		Func. Code = 15
+
+Write Multiple Registers	Func. Code = 16
 
 ```

