@@ -1,4 +1,4 @@
-FuzzyModbus v0.2
+FuzzyModbus v0.3
 =====================
 ModbusTCP Fuzzing and DoS Tool.
 
@@ -30,6 +30,8 @@ $> ./FuzzyModbus.py [OPTIONS]
 -a or --address <Reg_Addr>	DEFAULT=0 First Register Address
 
 -c or --count <Count>	DEFAULT=1 Count of Registers to read/write
+
+-i or --input <value> DEFAULT_BIT=0/DEFAULT_REG=666 Input Value to write
 
 ```
 
